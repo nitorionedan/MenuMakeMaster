@@ -5,20 +5,19 @@
     <meta charset="utf-8">
     <title>献立の達人</title>
 </head>
-
 <body>
+
     <h1>献立の達人</h1>
-
+    料理人：<br>
+    <input type="submit" name="/test/create" value="お品書く" onclick="location.href='/view/create.html'"/><br>
+    <input type="submit" name="/test/update" value="お品書きを修正" onclick="location.href='/view/update.html'"/><br>
+    <input type="submit" name="/test/delete" value="お品書きから消す" onclick="location.href='/view/delete.html'"/><br>
+    お客様：<br>
     <form action="/cgi-bin/root.py" method="POST">
-        主菜: <input type="text" name="main"><br/>
-        副菜: <input type="text" name="sub"><br/>
-        サラダ: <input type="text" name="salad"><br/>
-        <input type="submit" value="こんだつ！">
+        <input type="submit" name="/test/read" value="メニュー一覧"/><br>
+        <input type="submit" name="/test/generate" value="こんだつ！"/><br>
     </form>
+    <br>
 
-    <form>
-        <button type="submit" formaction="./cgi-bin/root.py">Go</button>
-    </form>
 </body>
-
 </html>

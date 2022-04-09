@@ -9,56 +9,41 @@ import cgi
 import model_test
 import view
 import controller_test
-import sqlite3
 from sqlite3 import OperationalError, IntegrityError, ProgrammingError
-import sqlite_backend
 import traceback
+import sys
+import io
 
-systemMsg = '>> no message<br>'
+# for Japanese
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+print('Content-Type: text/html; charset=UTF-8\n')
 
-def render(controller: controller_test.Controller):
-    global systemMsg
-    renderingText = """
-    <html>
-
-        <head>
-            <meta charset="utf-8">
-            <title>Exponents Calculator</title>
-        </head>
-
-        <body>
-            <h1>Rui chan Uchu Ichi Daisuki!!!</h1>
-            //////////////////////////////////////<br>
-            sqlite3 version is {}.<br>
-            system message:<br>
-            {}
-            //////////////////////////////////////<br>
-            <br>
-            {}<br>
-            <br>
-            <br>
-            <a href="../index.html">Back</a>
-        </body>
-
-    </html>
-    """.format(sqlite3.version, systemMsg, str(controller.show_item('unko')))
-
-    print(renderingText)
+systemMsg = str()
 
 def addSystemMsg(msg: str):
     global systemMsg
-    systemMsg = '>> ' + systemMsg + msg + '<br>'
+    systemMsg = systemMsg + '>> ' + msg + '<br>'
 
 def main():
     global systemMsg
+    form = cgi.FieldStorage()
 
-    try:
-        controller = controller_test.Controller(model_test.ModelSQLite(), view.View())
-        controller.insert_item('unko', 'main')
-    except:
-        addSystemMsg(traceback.format_exc())
+    ctrl = controller_test.Controller(model_test.ModelSQLite('test0405'), view.View())
 
-    render(controller)
-
-
+    if form.getfirst('/test/create'):
+        ctrl.create(form)
+    elif form.getfirst('/test/read'):
+        ctrl.read()
+    elif form.getfirst('/test/update'):
+        ctrl.update(form)
+    elif form.getfirst('/test/delete'):
+        ctrl.delete(form)
+    elif form.getfirst('/test/deleteall'):
+        ctrl.deleteall()
+    elif form.getfirst('/test/generate'):
+        ctrl.generate()
+    else:
+        #404 error
+        pass
+    
 main()

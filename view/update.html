@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>献立の達人</title>
+</head>
+<body>
+    
+    <h1>お品書きを修正</h1>
+    <form action="../cgi-bin/root.py" method="POST">
+        <input type="text" name="menu_name" placeholder="料理名"><br/>
+        <select name="menu_category">
+            <option value="" disabled selected style="display: none;">料理カテゴリ</option>
+            <option value="main">主菜</option>
+            <option value="sub">副菜</option>
+            <option value="salad">サラダ</option>
+        </select><br>
+        <input type="submit" name="/test/update" value="更新">
+    </form>
+
+    <br>
+    <a href="../index.html">Back</a>
+
+</body>
+</html>

@@ -80,7 +80,8 @@ class SQLiteBackend:
         try:
             conn.execute(sql)
         except OperationalError as e:
-            print(e)
+            #print('in create_table: ' + str(e))
+            pass
 
     def scrub(self, input_string):
         """Clean an input string (to prevent SQL injection).
